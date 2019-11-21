@@ -46,6 +46,25 @@ class Chatbot():
         log = self.login + ' ' + datetime.now().strftime('%d/%m/%Y %H:%M') + ' ' + frase + '\n'
         arq.write(log)
         arq.close()
+    
+    def bubblesort(self, dicionario):
+        keys = self.dicionario.keys()
+        lista = []
+        for i in keys:
+            lista.append(i)
+            print(lista)
+        elementos = len(lista)-1
+        ordenado = False
+        while not ordenado:
+            ordenado = True
+            for i in range(elementos):
+                if lista[i] > lista[i+1]:
+                    lista[i], lista[i+1] = lista[i+1],lista[i]
+                    ordenado = False        
+        dicionariorsa = {}
+        for i in lista:
+            dicionariorsa[i] = dicionario[i]   
+        return dicionariorsa
         
     def escuta(self, frase = None):
         if frase == None:
@@ -87,7 +106,7 @@ class Chatbot():
 
         if frase == '/rsa':
             self.gerarlog(frase)
-            return sorted(self.dicionario.items(), key = lambda x: x[0])
+            return self.bubblesort(self.dicionario)
 
         if frase == '/zer':
             self.gerarlog(frase)
@@ -179,6 +198,7 @@ class Chatbot():
 
     def fala(self, frase):
         print(self.logins)
+        print(self.dicionario.keys())
         self.historico.append(frase)
         print(frase)
 
