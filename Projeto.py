@@ -10,7 +10,6 @@ def pegalogins():
         usuario, senha = linha.split(',')
         senha = senha.replace('\n', '')
         logins[usuario] = senha
-    print(logins)
     return logins
 
 dicionario = {}
@@ -205,18 +204,35 @@ def fala(frase):
     historico.append(frase)
     print(frase)
 
-telegram = telepot.Bot("1004548222:AAFCg9WIPfpKNsaH1sXqv2XYk_UrwVguLIo")
 
-def recebendoMsg(msg):
-    frase = escuta(frase = msg['text'])
-    resp = pensa(frase)
-    fala(resp)
-    tipoMsg, tipoChat, chatID = telepot.glance(msg)
-    telegram.sendMessage(chatID, resp)
+escolha = input("Digite 1 para iniciar o servidor telegram e 2 para rodar o programa normalmente\n")
 
-telegram.message_loop(recebendoMsg)
+if escolha == 1:
+    telegram = telepot.Bot("1004548222:AAFCg9WIPfpKNsaH1sXqv2XYk_UrwVguLIo")
+
+    def recebendoMsg(msg):
+        frase = escuta(frase = msg['text'])
+        resp = pensa(frase)
+        fala(resp)
+        tipoMsg, tipoChat, chatID = telepot.glance(msg)
+        telegram.sendMessage(chatID, resp)
+
+    telegram.message_loop(recebendoMsg)
+
+    while True:
+        pass
 
 while True:
-    pass
+    frase = escuta(input(''))
+    resp = pensa(frase)
+    fala(resp)
+
+ 
+
+
+
+
+
+
 
 
