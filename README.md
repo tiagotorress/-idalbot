@@ -1,2 +1,2 @@
 # Projeto - idalbot
-bot telegram
+rode o Projeto.py
