@@ -1,7 +1,4 @@
 from datetime import datetime
-import os
-import logging
-logging.basicConfig(filename = 'historico.log', level = logging.INFO)
 
 def pegalogins():
     arquivo = open('usuarios.csv', 'r')
@@ -45,9 +42,11 @@ class Chatbot():
         self.login = ''
 
     def gerarlog(self, frase):
-        log = self.login + ' ' + datetime.now().strftime('%d/%m/%Y %H:%M') + ' ' + frase
-        logging.info(log)
-
+        arq = open('historico.log', 'a+')
+        log = self.login + ' ' + datetime.now().strftime('%d/%m/%Y %H:%M') + ' ' + frase + '\n'
+        arq.write(log)
+        arq.close()
+        
     def escuta(self, frase = None):
         if frase == None:
             frase = input('')
@@ -56,7 +55,6 @@ class Chatbot():
     
     def pensa(self, frase):
         if frase == '/login':
-            self.gerarlog(frase)
             if self.login == '':
                 self.login = 'logando'
                 return 'Qual seu login?'
@@ -68,6 +66,7 @@ class Chatbot():
 
         if self.historico[-1] == 'Qual seu login?':
             self.login = frase
+            self.gerarlog('/login')
             return 'Qual sua senha?'
         
         if frase == '/add' or frase == '/att':
